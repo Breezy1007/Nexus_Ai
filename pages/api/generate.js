@@ -1,32 +1,28 @@
 export default async function handler(req, res) {
   const { prompt } = req.body;
-
   if (!prompt) {
     return res.status(400).json({ error: "No prompt" });
   }
-
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+        "x-api-key": process.env.ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01"
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 1024,
         messages: [
-          { role: "system", content: "You are a smart business AI assistant." },
           { role: "user", content: prompt }
         ]
       })
     });
-
     const data = await response.json();
-
     res.status(200).json({
-      result: data.choices?.[0]?.message?.content || "No response"
+      result: data.content?.[0]?.text || "No response"
     });
-
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
