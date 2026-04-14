@@ -1,35 +1,56 @@
 import { useState } from "react";
+
 export default function Home() {
   const [prompt, setPrompt] = useState("");
   const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const generate = async () => {
-    setResult("Loading...");
+    setLoading(true);
+    setResult("");
+
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt })
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
       });
+
       const data = await res.json();
-      setResult(data.result || data.error || JSON.stringify(data));
+
+      if (data.result) {
+        setResult(data.result);
+      } else {
+        setResult("وقع مشكل: " + JSON.stringify(data.error));
+      }
     } catch (err) {
       setResult("Error: " + err.message);
     }
+
+    setLoading(false);
   };
+
   return (
-    <div style={{ padding: 30 }}>
-      <h1>🚀 Aivora AI</h1>
+    <div style={{ padding: 40, fontFamily: "Arial" }}>
+      <h1>Aivora Pro 🚀</h1>
+
       <textarea
-        placeholder="دخل فكرة..."
+        rows={4}
+        style={{ width: "100%", marginBottom: 10 }}
+        placeholder="كتب السؤال ديالك..."
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
-        style={{ width: "100%", height: 100 }}
       />
-      <button onClick={generate} style={{ marginTop: 10 }}>
-        Generate
+
+      <button onClick={generate}>
+        {loading ? "جاري..." : "Generate"}
       </button>
+
       <div style={{ marginTop: 20 }}>
-        {result}
+        <strong>الجواب:</strong>
+        <p>{result}</p>
       </div>
     </div>
   );
