@@ -144,15 +144,14 @@ export default function Chat() {
                   <p className="plan-name">Starter</p>
                   <p className="plan-price">49 درهم<span>/شهر</span></p>
                   <p className="plan-desc">200 رسالة في الشهر</p>
-                  <button className="plan-btn">اختار</button>
+                  <button className="plan-btn" onClick={() => window.open('https://paypal.me/nexusaipro', '_blank')}>اختار</button>
                 </div>
                 <div className="plan plan-featured">
                   <p className="plan-badge">الأشهر</p>
                   <p className="plan-name">Pro</p>
                   <p className="plan-price">149 درهم<span>/شهر</span></p>
                   <p className="plan-desc">رسائل غير محدودة</p>
-                  <button className="plan-btn plan-btn-featured">اختار</button>
-                </div>
+                  <button className="plan-btn plan-btn-featured" onClick={() => window.open('https://paypal.me/nexusaipro', '_blank')}>اختار</button>
               </div>
               <button className="modal-close" onClick={() => setShowUpgrade(false)}>إغلاق</button>
             </div>
