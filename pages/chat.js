@@ -154,7 +154,7 @@ export default function Chat() {
                   <button className="plan-btn plan-btn-featured" onClick={() => window.open('https://paypal.me/nexusaipro', '_blank')}>اختار</button>
                 </div>
               </div>
-              <button className="modal-close"
+              <button className="modal-close" onClick={() => setShowUpgrade(false)}>إغلاق</button>
             </div>
           </div>
         )}
