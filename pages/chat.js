@@ -152,8 +152,9 @@ export default function Chat() {
                   <p className="plan-price">149 درهم<span>/شهر</span></p>
                   <p className="plan-desc">رسائل غير محدودة</p>
                   <button className="plan-btn plan-btn-featured" onClick={() => window.open('https://paypal.me/nexusaipro', '_blank')}>اختار</button>
+                </div>
               </div>
-              <button className="modal-close" onClick={() => setShowUpgrade(false)}>إغلاق</button>
+              <button className="modal-close"
             </div>
           </div>
         )}
